@@ -1,32 +1,16 @@
 const express = require('express');
+const PORT = process.env.PORT || 3003;
 const app = express();
-const {notes} = require('../Note-Taker-App/data/notes.json');
+const apiRoutes = require('../Note-Taker-App/routes/apiRoutes')
+const htmlRoutes = require('../Note-Taker-App/routes/htmlRoutes')
+
+app.use('/api', apiRoutes)
+app.use('/', htmlRoutes)
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.get('/api/notes', (req, res) => {
-    res.json(notes);
-};
-
-app.listen(3001, () => {
-    console.log('API server now on port 3001!')
+app.listen(PORT, () => {
+    console.log(`API server now on port http://localhost:${PORT}!`)
 });
