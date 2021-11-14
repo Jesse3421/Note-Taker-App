@@ -25,7 +25,9 @@ class NoteStore {
 
     };
 
-    
+    createNotes() {
+        
+    }
 
 }
 module.exports = NoteStore
