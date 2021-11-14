@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { builtinModules } = require('module');
-const noteStore = require('../miniature-eureka-main/Develop/db/notestore.js') 
+const noteStore = require('../db/notestore.js') 
 
 
  
