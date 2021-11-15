@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { builtinModules } = require('module');
-const noteStore = require('../db/notestore.js') 
+const noteStore = require('../db/notestore.js'); 
+const uuid = require('uuid');
 
 
  
@@ -12,7 +13,11 @@ router.get('/notes', (req, res) => {
  })
 ;
  
- //router.post()
+router.post('/notes', (req, res) => {
+      noteStore.createNotes(req.body).then((notes) => {
+          return res.json(notes);
+      }).catch((err) => req.status(500).json(err));
+ });
 
 
  module.exports = router 
