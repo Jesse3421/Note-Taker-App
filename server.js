@@ -12,11 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'))
 
-// app.post('/', (req, res) => {
-//     console.log(req.body);
-//     res.status(201).send('Created User')
-// })
-
 app.listen(PORT, () => {
     console.log(`API server now on port http://localhost:${PORT}!`)
 });
