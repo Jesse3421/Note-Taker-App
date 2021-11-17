@@ -7,7 +7,7 @@ const writeFile = util.promisify(fs.writeFile);
  
 class NoteStore {
     write(note) {
-        return writeFile('db/db.json'. JSON.stringify(note))
+        return writeFile('db/db.json', JSON.stringify(note))
     }
     
     read(){
@@ -31,19 +31,13 @@ class NoteStore {
        if (!title || !text) {
            throw new Error('Information is needed in both fields');
        }
-       const newNote = { title: req.body.title, text: req.body.text, id: uuidv4() };
+       const newNote = { title, text, id: uuidv4() };
     
        return this.read()
-            .then((notes) => [...notes, newNote])
+            .then((notes) => [...JSON.parse(notes), newNote])
             .then((updatedArr) => this.write(updatedArr))
             .then(() => newNote)
         
-    };
-
-    deleteNote(id) {
-        return this.getNotes()
-        .then((notes) => notes.filter(note => note.id !== id))
-        .then(leftOverArr => this.write(leftOverArr))
     };
     
 }
