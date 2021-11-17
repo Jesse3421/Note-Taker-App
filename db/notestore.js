@@ -11,11 +11,11 @@ class NoteStore {
     }
     
     read(){
-        return readFile('db/db.json', 'utf-8')
+        return readFile('db/db.json', 'utf8')
     };
     
-   retrieveNotes() {
-       return this.read().then(notes => {
+   getNotes() {
+       return this.read().then((notes) => {
            let notesArr;
            try{
                notesArr = [].concat(JSON.parse(notes))
@@ -26,20 +26,26 @@ class NoteStore {
        })
    };
    
-   createNotes(note) {
+    saveNote(note) {
        const { title, text } = note;
        if (!title || !text) {
            throw new Error('Information is needed in both fields');
        }
-       const newNote = { title, text, id: uuidv4() };
+       const newNote = { title: req.body.title, text: req.body.text, id: uuidv4() };
     
-       return this.retrieveNotes()
-            .then(notes => [...notes, newNote])
-            .then(updatedArr => this.write(updatedArr))
+       return this.read()
+            .then((notes) => [...notes, newNote])
+            .then((updatedArr) => this.write(updatedArr))
             .then(() => newNote)
         
-    }
+    };
+
+    deleteNote(id) {
+        return this.getNotes()
+        .then((notes) => notes.filter(note => note.id !== id))
+        .then(leftOverArr => this.write(leftOverArr))
+    };
     
 }
-module.exports = NoteStore
+module.exports = new NoteStore();
 
